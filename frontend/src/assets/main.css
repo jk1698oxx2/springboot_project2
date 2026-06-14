@@ -1,35 +1,32 @@
-@import './base.css';
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+.sub-title {
+  color: #2e7d32;
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 4px;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
+.error-text {
+  color: red;
+  font-size: 0.9em;
+  font-weight: bold;
+  margin-bottom: 16px;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+.text-fail {
+  color: red;
+  font-weight: bold;
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
+.my-sticky-header-table {
+  height: 400px;
+}
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+.my-sticky-header-table thead tr th {
+  position: sticky;
+  z-index: 1;
+  background-color: #f1f8e9;
+}
+
+.my-sticky-header-table thead tr:first-child th {
+  top: 0;
 }

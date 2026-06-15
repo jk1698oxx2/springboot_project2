@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class AppointQueryResultDto {
     private String executionResult;
+    private Integer sno;
     private String listNo;
     private String custName;
     private String campName;

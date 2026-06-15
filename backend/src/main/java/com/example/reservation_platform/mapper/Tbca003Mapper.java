@@ -18,6 +18,7 @@ public interface Tbca003Mapper {
 
     @Select("SELECT " +
             "  '' AS executionResult, " +
+            "  a003.SNO AS sno, " +
             "  a003.LIST_NO AS listNo, " +
             "  a008.CUST_NAME AS custName, " +
             "  b001.CAMP_NAME AS campName, " +

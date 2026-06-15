@@ -11,24 +11,44 @@
 
         <div class="row items-center q-gutter-sm">
           <span>查詢日期：</span>
-          <q-input filled v-model="startTime" mask="####-##-## ##:##:##" placeholder="YYYY-MM-DD HH:mm:ss" dense>
+          
+          <q-input filled v-model="startTime" mask="####-##-## ##:##:##" placeholder="YYYY-MM-DD HH:mm:ss" dense class="datetime-input">
             <template v-slot:append>
-              <q-icon name="event" class="cursor-pointer" />
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                  <div class="row items-center justify-center q-gutter-sm q-pa-md bg-white">
+                    <q-date v-model="startTime" mask="YYYY-MM-DD HH:mm:ss" color="positive" />
+                    <q-time v-model="startTime" mask="YYYY-MM-DD HH:mm:ss" with-seconds color="positive" format24h />
+                  </div>
+                </q-popup-proxy>
+              </q-icon>
             </template>
           </q-input>
+
           <span> ~ </span>
-          <q-input filled v-model="endTime" mask="####-##-## ##:##:##" placeholder="YYYY-MM-DD HH:mm:ss" dense>
+
+          <q-input filled v-model="endTime" mask="####-##-## ##:##:##" placeholder="YYYY-MM-DD HH:mm:ss" dense class="datetime-input">
             <template v-slot:append>
-              <q-icon name="event" class="cursor-pointer" />
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                  <div class="row items-center justify-center q-gutter-sm q-pa-md bg-white">
+                    <q-date v-model="endTime" mask="YYYY-MM-DD HH:mm:ss" color="positive" />
+                    <q-time v-model="endTime" mask="YYYY-MM-DD HH:mm:ss" with-seconds color="positive" format24h />
+                  </div>
+                </q-popup-proxy>
+              </q-icon>
             </template>
           </q-input>
+
           <q-btn color="positive" label="查詢" @click="doSearch" />
         </div>
       </q-card-section>
 
       <q-card-section>
         <div class="row justify-between items-center q-mb-sm">
-          <div>查詢結果：<span class="text-red text-weight-bold">目前勾選 {{ selectedRows.length }} 筆</span></div> <div class="text-grey">查詢筆數：{{ tableData.length }} 筆</div> </div>
+          <div>查詢結果：<span class="text-red text-weight-bold">目前勾選 {{ selectedRows.length }} 筆</span></div>
+          <div class="text-grey">查詢筆數：{{ tableData.length }} 筆</div>
+        </div>
 
         <q-table
           class="my-sticky-header-table"
@@ -57,19 +77,32 @@
         <div class="sub-title">重新設定安排方式：</div>
         
         <div class="column q-gutter-sm">
-          <q-radio v-model="arrangeType" val="1" label="安排至今日約訪時間" /> <div class="row items-center">
+          <q-radio v-model="arrangeType" val="1" label="安排至今日約訪時間" />
+          
+          <div class="row items-center">
             <q-radio v-model="arrangeType" val="2" label="安排至 今日 +" />
-            <q-input v-model.number="addDays" type="number" dense filled class="q-mx-sm" style="width: 80px" />
-            <span>工作天</span> </div>
+            <q-input v-model.number="addDays" type="number" dense filled class="q-mx-sm days-counter-input" />
+            <span>工作天</span>
+          </div>
 
           <div class="row items-center">
             <q-radio v-model="arrangeType" val="3" label="安排至此約訪時間：" />
-            <q-input filled v-model="specificDate" mask="####-##-## ##:##:##" dense class="q-ml-sm" :disable="arrangeType !== '3'">
+            
+            <q-input filled v-model="specificDate" mask="####-##-## ##:##:##" placeholder="YYYY-MM-DD HH:mm:ss" dense class="q-ml-sm datetime-input" :disable="arrangeType !== '3'">
               <template v-slot:append>
-                <q-icon name="event" class="cursor-pointer" />
+                <q-icon name="event" class="cursor-pointer">
+                  <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                    <div class="row items-center justify-center q-gutter-sm q-pa-md bg-white">
+                      <q-date v-model="specificDate" mask="YYYY-MM-DD HH:mm:ss" color="positive" />
+                      <q-time v-model="specificDate" mask="YYYY-MM-DD HH:mm:ss" with-seconds color="positive" format24h />
+                    </div>
+                  </q-popup-proxy>
+                </q-icon>
               </template>
             </q-input>
-            <span class="text-grey q-ml-md">(若選擇該項，只會處理你所勾選的第一筆資料)</span> </div>
+            
+            <span class="text-grey q-ml-md">(若選擇該項，只會處理你所勾選的第一筆資料)</span>
+          </div>
         </div>
 
         <div class="row justify-center q-mt-lg">

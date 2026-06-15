@@ -89,6 +89,13 @@ export function useUpdTime() {
       return;
     }
 
+    // 檢查勾選的資料中，sno 是否存在
+    if (selectedRows.value.some(row => row.sno === undefined || row.sno === null)) {
+      console.error('偵測到勾選的列資料中遺失 sno 欄位:', selectedRows.value);
+      $q.notify({ type: 'negative', message: '前端資料異常：遺失案件流水號' });
+      return;
+    }
+
     // 組裝 Request 陣列 (依據 arrangeType 計算每筆的目標時間)
     const reqList = selectedRows.value.map(row => {
       let targetTime = row.recallTime;
@@ -110,6 +117,7 @@ export function useUpdTime() {
       return { sno: row.sno, recallTime: targetTime };
     });
 
+    console.log('準備送出的更新 Payload:', { arrangeType: arrangeType.value, reqList });
     try {
       const payload = { arrangeType: arrangeType.value, reqList };
       const res = await customerApi.updateAppoint(payload);

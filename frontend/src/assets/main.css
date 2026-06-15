@@ -5,6 +5,14 @@
   margin-bottom: 4px;
 }
 
+.datetime-input {
+  width: 230px;
+}
+
+.days-counter-input {
+  width: 80px;
+}
+
 .error-text {
   color: red;
   font-size: 0.9em;
